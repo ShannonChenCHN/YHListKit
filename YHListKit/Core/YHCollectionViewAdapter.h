@@ -35,7 +35,7 @@
 @property (weak, nonatomic) id <UICollectionViewDelegate> collectionViewDelegate;
 @property (strong, nonatomic) UICollectionView *collectionView;
 
-@property (strong, nonatomic) NSArray <YHCollectionViewSectionModel *> *sectionModels;
+@property (strong, nonatomic) NSArray <YHCollectionViewSectionModel *> *sectionModels; ///< 数据源
 
 
 /// 便捷读取 view model 的方法
