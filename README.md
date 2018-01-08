@@ -76,11 +76,36 @@ self.adapter.sectionModels = sections;
 [self.collectionView reloadData];
 ```
 
+#### 4. 除了在 view model 层设置 cell 、 section header 和 section footer 的高度之外，还可以在对应的 view 层设置高度，只需要实现 `YHCollectionViewCell` 和 `YHCollectionViewSectionHeaderFooter` 协议中定义的方法即可：
+``` Objective-C
+@protocol YHCollectionViewCell <NSObject>
 
+...
+
++ (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model;
++ (CGFloat)cellWidthWithModel:(YHCollectionViewCellModel *)model;
+
+
+@end
+```
+
+``` Objective-C
+@protocol YHCollectionViewSectionHeaderFooter <NSObject>
+
+...
+
++ (CGFloat)heightWithModel:(YHCollectionViewSectionModel *)model;
++ (CGFloat)widthWithModel:(YHCollectionViewSectionModel *)model;
+
+@end
+```
 
 
 ## 系统要求
 该项目最低支持 iOS 7.0。
+
+## 致谢❤️
+感谢 [bestswifter](https://github.com/bestswifter) 和 [IGListKit](https://github.com/Instagram/IGListKit) 带来的启发。
 
 ## 许可证
 使用的是 MIT 许可证。 详情见 [LICENSE](https://github.com/ShannonChenCHN/YHListKit/blob/master/LICENSE) 文件。
