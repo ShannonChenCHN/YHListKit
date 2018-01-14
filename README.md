@@ -100,6 +100,8 @@ self.adapter.sectionModels = sections;
 @end
 ```
 
+更详细的使用介绍见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
+
 
 ## 系统要求
 该项目最低支持 iOS 7.0。
@@ -108,4 +110,4 @@ self.adapter.sectionModels = sections;
 感谢 [bestswifter](https://github.com/bestswifter) 和 [IGListKit](https://github.com/Instagram/IGListKit) 带来的启发。
 
 ## 许可证
-使用的是 MIT 许可证。 详情见 [LICENSE](https://github.com/ShannonChenCHN/YHListKit/blob/master/LICENSE) 文件。
+该项目使用的是 MIT 许可证。 详情见 [LICENSE](https://github.com/ShannonChenCHN/YHListKit/blob/master/LICENSE) 文件。
