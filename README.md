@@ -9,6 +9,11 @@ YHListKit 是一个基于  `UICollectionView` 的、轻量级的数据驱动列�
 - 使用了面向协议的设计，去耦合
 - 不需要继承，即插即用，无侵入性
 
+## 预览效果图
+
+<img src="./src/preview.gif" width=375 height=667>
+
+
 ## 架构
 
 ![](./src/YHListKit.png)
