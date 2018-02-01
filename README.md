@@ -48,6 +48,8 @@ self.adapter.delegate = self;
 NSMutableArray *sections = [NSMutableArray array];
 for (int section = 0; section < 4; section++) {
 
+	BOOL hasMultiColumns = section % 2;
+
     // 创建 section model
     YHCollectionViewSectionModel *sectionModel = [[YHCollectionViewSectionModel alloc] init];
 
@@ -58,7 +60,12 @@ for (int section = 0; section < 4; section++) {
         YHCollectionViewCellModel *cellModel = [[YHCollectionViewCellModel alloc] init];
         cellModel.dataModel = [NSString stringWithFormat:@"%i - %i", section, row]; // 设置 model 数据
         cellModel.cellClass = [SCCutomCollectionViewCell class];                    // 设置 cell class
-        cellModel.cellHeight = [UIScreen mainScreen].bounds.size.width * 0.656;     // 设置 cell 高度，也可以在对应的 cell 中实现相应的协议方法来实现
+        if (hasMultiColumns) {
+                cellModel.cellWidth = 160;
+                cellModel.cellHeight = 160;
+         } else {
+                cellModel.cellHeight = 70;  // 设置 cell 高度，也可以在对应的 cell 中实现相应的协议方法来实现
+         }
 
         [rows addObject:cellModel];
     }
@@ -68,6 +75,12 @@ for (int section = 0; section < 4; section++) {
     sectionModel.headerHeight = 50;                                   // 设置 section header 的 高度
     sectionModel.footerClass = [SCCollectionSectionFooterView class]; // 设置 section footer 的 class
     sectionModel.footerHeight = 20;                                   // 设置 section footer 的 高度
+    
+    if (hasMultiColumns) {
+        sectionModel.sectionInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+        sectionModel.minimumLineSpacing = 15;
+    }
+    
     [sections addObject:sectionModel];
 }
 
