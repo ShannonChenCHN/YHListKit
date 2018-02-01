@@ -48,6 +48,8 @@
     NSMutableArray *sections = [NSMutableArray array];
     for (int section = 0; section < 4; section++) {
         
+        BOOL hasMultiColumns = section % 2;
+        
         YHCollectionViewSectionModel *sectionModel = [[YHCollectionViewSectionModel alloc] init];
         
         NSMutableArray *rows = [NSMutableArray array];
@@ -57,7 +59,13 @@
             cellModel.dataModel = [NSString stringWithFormat:@"%i - %i", section, row];
             
             cellModel.cellClass = [SCCutomCollectionViewCell class];
-            cellModel.cellHeight = [UIScreen mainScreen].bounds.size.width * 0.656;
+            
+            if (hasMultiColumns) {
+                cellModel.cellWidth = 160;
+                cellModel.cellHeight = 160;
+            } else {
+                cellModel.cellHeight = 70;
+            }
             
             [rows addObject:cellModel];
         }
@@ -67,6 +75,10 @@
         sectionModel.headerHeight = 50;
         sectionModel.footerClass = [SCCollectionSectionFooterView class];
         sectionModel.footerHeight = 20;
+        if (hasMultiColumns) {
+            sectionModel.sectionInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+            sectionModel.minimumLineSpacing = 15;
+        }
         [sections addObject:sectionModel];
     }
     self.adapter.sectionModels = sections;

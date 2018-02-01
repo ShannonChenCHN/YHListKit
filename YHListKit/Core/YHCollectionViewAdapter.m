@@ -71,10 +71,12 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 
 // https://stackoverflow.com/a/13410537
 - (UICollectionReusableView *)sectionHeaderForSection:(NSInteger)section {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
+    
+    if (@available(iOS 9.0, *)) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
         return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
     } else {
+        // Fallback on earlier versions
         return self.sectionHeaderMap[@(section)];
     }
 }
@@ -162,6 +164,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 #pragma mark - <UICollectionViewDelegate>
+
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     
     // https://stackoverflow.com/a/46930410
@@ -177,6 +180,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 #pragma mark - <UICollectionViewDelegateFlowLayout>
+
 // 计算 cell 尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -207,11 +211,21 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
+    
+    return sectionModel.minimumLineSpacing;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
+    
+    return sectionModel.minimumInteritemSpacing;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    YHCollectionViewSectionModel *sectionModel = [self collectionView:collectionView viewModelForSection:section];
+    
+    return sectionModel.sectionInsets;
 }
 
 // 计算 section header 尺寸

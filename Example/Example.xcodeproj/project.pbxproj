@@ -99,16 +99,9 @@
 				5839FBC020036BC20083627A /* YHListKit */,
 				5839FB87200363990083627A /* AppDelegate.h */,
 				5839FB88200363990083627A /* AppDelegate.m */,
-				5839FBC620036BC20083627A /* YHCollectionViewController.h */,
-				5839FBC720036BC20083627A /* YHCollectionViewController.m */,
 				5839FB8A200363990083627A /* ViewController.h */,
 				5839FB8B200363990083627A /* ViewController.m */,
-				5839FBB5200368ED0083627A /* SCCollectionSectionFooterView.h */,
-				5839FBB4200368ED0083627A /* SCCollectionSectionFooterView.m */,
-				5839FBB6200368ED0083627A /* SCCollectionSectionHeaderView.h */,
-				5839FBB7200368EE0083627A /* SCCollectionSectionHeaderView.m */,
-				5839FBB8200368EE0083627A /* SCCutomCollectionViewCell.h */,
-				5839FBB9200368EE0083627A /* SCCutomCollectionViewCell.m */,
+				58FDB3372022E159006FC542 /* Classes */,
 				5839FB8D200363990083627A /* Main.storyboard */,
 				5839FB90200363990083627A /* Assets.xcassets */,
 				5839FB92200363990083627A /* LaunchScreen.storyboard */,
@@ -163,6 +156,21 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		58FDB3372022E159006FC542 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5839FBC620036BC20083627A /* YHCollectionViewController.h */,
+				5839FBC720036BC20083627A /* YHCollectionViewController.m */,
+				5839FBB5200368ED0083627A /* SCCollectionSectionFooterView.h */,
+				5839FBB4200368ED0083627A /* SCCollectionSectionFooterView.m */,
+				5839FBB6200368ED0083627A /* SCCollectionSectionHeaderView.h */,
+				5839FBB7200368EE0083627A /* SCCollectionSectionHeaderView.m */,
+				5839FBB8200368EE0083627A /* SCCutomCollectionViewCell.h */,
+				5839FBB9200368EE0083627A /* SCCutomCollectionViewCell.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		C3B25305D78E1E7CD94ADF4C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +222,7 @@
 				TargetAttributes = {
 					5839FB83200363990083627A = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -455,13 +463,14 @@
 			baseConfigurationReference = B60FE77C27CEEDEB2F14EACF /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L32PN8QKLZ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shannon.com.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -471,13 +480,14 @@
 			baseConfigurationReference = 45ADFCDF4FD9045EEC49D94C /* Pods-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L32PN8QKLZ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shannon.com.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

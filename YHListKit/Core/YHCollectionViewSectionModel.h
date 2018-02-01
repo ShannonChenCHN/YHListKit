@@ -24,6 +24,7 @@
 
 @property (assign, nonatomic) NSInteger section;
 @property (assign, nonatomic) NSInteger numberOfSectionsInCollectionView;
+@property (copy, nonatomic) NSString *sectionIdentifier; // 用于标识 section 的唯一性，在需要时可以直接根据该参数获取到所需的 section model，可选字段
 
 @property (strong, nonatomic) NSArray <YHCollectionViewCellModel *> *cellModels;
 
@@ -31,6 +32,10 @@
 @property (assign, nonatomic) CGFloat footerWidth;
 @property (assign, nonatomic) CGFloat footerHeight;
 @property (strong, nonatomic) Class footerClass;
+
+@property (nonatomic, assign) CGFloat minimumLineSpacing;
+@property (nonatomic, assign) CGFloat minimumInteritemSpacing;
+@property (nonatomic, assign) UIEdgeInsets sectionInsets;
 
 
 @end

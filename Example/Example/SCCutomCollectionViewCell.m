@@ -23,13 +23,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255.0) / 255.0
+                                               green:arc4random_uniform(255.0) / 255.0
+                                                blue:arc4random_uniform(255.0) / 255.0
+                                               alpha:1.0];
         
         _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _titleLabel.numberOfLines = 1;
         _titleLabel.font = [UIFont boldSystemFontOfSize:20];
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor blackColor];
         [self addSubview:_titleLabel];
 
@@ -42,5 +45,13 @@
     self.titleLabel.text = cellModel.dataModel;
     
 }
+
+//+ (CGFloat)cellWidthWithModel:(YHCollectionViewCellModel *)model {
+//    return <#expression#>
+//}
+
+//+ (CGFloat)cellHeightWithModel:(YHCollectionViewCellModel *)model {
+//    return <#expression#>
+//}
 
 @end
