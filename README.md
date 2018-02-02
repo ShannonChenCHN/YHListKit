@@ -124,8 +124,16 @@ self.adapter.sectionModels = sections;
 ## 系统要求
 该项目最低支持 iOS 7.0。
 
+## TODO
+
+- [ ] Swift version
+- [ ] CocoaPods  support
+
+
 ## 致谢❤️
 感谢 [bestswifter](https://github.com/bestswifter) 和 [IGListKit](https://github.com/Instagram/IGListKit) 带来的启发。
+
+如果你有好的想法和问题，欢迎提 issue 和 pull request。🤝
 
 ## 许可证
 该项目使用的是 MIT 许可证。 详情见 [LICENSE](https://github.com/ShannonChenCHN/YHListKit/blob/master/LICENSE) 文件。
