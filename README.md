@@ -1,9 +1,10 @@
 # YHListKit
 
+![](https://img.shields.io/badge/platform-iOS-red.svg)
+![](https://img.shields.io/badge/language-Objective--C-orange.svg)
 ![](https://img.shields.io/cocoapods/v/YHListKit.svg?style=flat)
-![](https://img.shields.io/cocoapods/p/YHListKit.svg?style=flat)
-![](https://img.shields.io/badge/language-ObjC-orange.svg)
-![](https://img.shields.io/cocoapods/l/YHListKit.svg?style=flat)
+![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)
+[![](https://badge.juejin.im/entry/5a635b6b518825732e2f6648/likes.svg?style=flat)](https://juejin.im/post/5a635a586fb9a01ca071edd7)
 
 YHListKit 是一个基于  `UICollectionView` 的、轻量级的数据驱动列表框架，其核心思想在于通过 Adapter 模式将繁琐的 `UICollectionView` 相关代理方法转变成数据驱动的接口，更贴近人类的思维方式，同时还将注册 cell 和 dequeue cell 的逻辑封装到了内部，另外还通过借助消息转发机制，将 `UICollectionViewDelegate`、`UIScrollViewDelegate` 等代理方法由中间人转发出来，以供外面的使用方在需要时可以使用。
 
