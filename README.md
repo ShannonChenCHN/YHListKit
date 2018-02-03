@@ -1,4 +1,10 @@
 # YHListKit
+
+![](https://img.shields.io/cocoapods/v/YHListKit.svg?style=flat)
+![](https://img.shields.io/cocoapods/p/YHListKit.svg?style=flat)
+![](https://img.shields.io/badge/language-ObjC-orange.svg)
+![](https://img.shields.io/cocoapods/l/YHListKit.svg?style=flat)
+
 YHListKit 是一个基于  `UICollectionView` 的、轻量级的数据驱动列表框架，其核心思想在于通过 Adapter 模式将繁琐的 `UICollectionView` 相关代理方法转变成数据驱动的接口，更贴近人类的思维方式，同时还将注册 cell 和 dequeue cell 的逻辑封装到了内部，另外还通过借助消息转发机制，将 `UICollectionViewDelegate`、`UIScrollViewDelegate` 等代理方法由中间人转发出来，以供外面的使用方在需要时可以使用。
 
 
@@ -120,6 +126,15 @@ self.adapter.sectionModels = sections;
 
 更详细的使用介绍见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
 
+## 安装
+
+YHListKit 可以通过 CocoaPods 安装：
+
+```
+pod 'YHListKit'
+```
+
+也可以通过手动安装，下载源代码后，将 `YHListKit` 文件夹拖到项目中即可使用。
 
 ## 系统要求
 该项目最低支持 iOS 7.0。
@@ -127,7 +142,7 @@ self.adapter.sectionModels = sections;
 ## TODO
 
 - [ ] Swift version
-- [ ] CocoaPods  support
+- [x] CocoaPods  support
 
 
 ## 致谢❤️
