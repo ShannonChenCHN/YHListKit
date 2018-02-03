@@ -91,5 +91,15 @@
     });
 }
 
+#pragma mark - <UICollectionViewDelegate>
+    
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%s", __FUNCTION__);
+}
+    
+#pragma mark - <YHCollectionViewAdapterDelegate>
+- (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%s", __FUNCTION__);
+}
 
 @end
