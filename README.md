@@ -26,7 +26,7 @@ YHListKit 是一个基于  `UICollectionView` 的、轻量级的数据驱动列�
 
 ![](./src/YHListKit.png)
 
-原来创建实现一个列表需要跟 UICollectionView 繁琐的 API 打交道：
+原来实现一个列表需要跟 UICollectionView 繁琐的 API 打交道：
 > 1. 创建 UICollectionView；
 > 2. 注册 cell；
 > 3. 解析数据/组装数据；
