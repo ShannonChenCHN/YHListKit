@@ -40,7 +40,7 @@ YHListKit 是一个基于  `UICollectionView` 的、轻量级的数据驱动列�
 > 4.  reload data；
 
 
-程序的本质就是处理数据，UI 是数据的表现层。最理想的效果就是写一个配置文件，就能看到效果。`YHListKit` 所做的就是，去掉解析数据之后的那一步，让我们只需要关心数据，就是这么简单。
+程序的本质就是处理数据，UI 是数据的表现层。对于软件工程师来讲，最理想的效果就是写一个配置文件，就能看到效果。`YHListKit` 所做的就是，去掉解析数据之外的多余步骤，让我们只需要关心数据，就是这么简单。
 
 类、协议		|	功能
 ---		|		---
@@ -74,14 +74,18 @@ self.adapter.delegate = self;                         // 设置代理不是必�
 
 #### 3. 设置 view model 数据，也就是创建 section model 和 cell model，配置相关数据（注：这里仅仅是举个例子，你可以配置任何你想要展示的数据）：
 ``` Objective-C
+
+// 可以理解为一个 table view 的数据源由多个 section model 组成，每个 sectionModel 包括 header 和 footer 相关的信息、cell models、以及 section 本身的信息。详见 YHCollectionViewSectionModel 和 YHCollectionViewCellModel 的头文件。
+
 NSMutableArray *sections = [NSMutableArray array];
+
 for (int section = 0; section < 4; section++) {
 
 	BOOL hasMultiColumns = section % 2;
 
     // 创建 section model
     YHCollectionViewSectionModel *sectionModel = [[YHCollectionViewSectionModel alloc] init];
-
+    sectionModel.sectionIdentifier = [NSString stringWithFormat:@"section_id_%@", @(section)];  // 设置 section 的唯一标识，可选
     NSMutableArray *rows = [NSMutableArray array];
     for (int row = 0; row < 10; row++) {
 
