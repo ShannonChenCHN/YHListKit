@@ -14,7 +14,8 @@
  */
 @interface YHCollectionViewCellModel : NSObject
 
-@property (strong, nonatomic) Class cellClass;
+@property (strong, nonatomic) Class cellClass;   // class 和 nibName 两个属性必须选择设置其中一个
+@property (copy, nonatomic) NSString *nibName;
 
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (assign, nonatomic) CGFloat cellWidth;  // 可选字段，默认是 container 的宽度
@@ -26,3 +27,4 @@
 
 
 @end
+

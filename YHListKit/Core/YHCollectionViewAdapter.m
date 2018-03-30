@@ -26,7 +26,9 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 // https://stackoverflow.com/a/13410537
 @property (strong, nonatomic) NSMutableDictionary <NSNumber *, UICollectionReusableView *> *sectionHeaderMap;
 @property (nonatomic, strong) NSMutableSet<Class> *registeredCellClasses;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredCellNibNames;
 @property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewIdentifiers;
+@property (nonatomic, strong) NSMutableSet<NSString *> *registeredSupplementaryViewNibNames;
 
 
 @property (strong, nonatomic) MessageInterceptor *delegateInterceptor;
@@ -71,12 +73,10 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 
 // https://stackoverflow.com/a/13410537
 - (UICollectionReusableView *)sectionHeaderForSection:(NSInteger)section {
-    
-    if (@available(iOS 9.0, *)) {
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
         return [self.collectionView supplementaryViewForElementKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
     } else {
-        // Fallback on earlier versions
         return self.sectionHeaderMap[@(section)];
     }
 }
@@ -103,13 +103,21 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     YHCollectionViewCellModel *cellModel = [self collectionView:collectionView cellModelForItemAtIndexPath:indexPath];
     Class cellClass = cellModel.cellClass;
+    NSString *nibName = cellModel.nibName;
     
-    if (cellClass) {
+    if (cellClass || nibName) {
         
-        NSString *identifier = YHReusableViewIdentifier(cellClass, nil, nil);
-        if (![self.registeredCellClasses containsObject:cellClass]) {
-            [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
-            [self.registeredCellClasses addObject:cellClass];
+        NSString *identifier = YHReusableViewIdentifier(cellClass, nibName, nil);
+        if (nibName) {
+            if (![self.registeredCellNibNames containsObject:nibName]) {
+                [collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forCellWithReuseIdentifier:identifier];
+                [self.registeredCellNibNames addObject:nibName];
+            }
+        } else {
+            if (![self.registeredCellClasses containsObject:cellClass]) {
+                [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
+                [self.registeredCellClasses addObject:cellClass];
+            }
         }
         
         UICollectionViewCell <YHCollectionViewCell> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -133,15 +141,23 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     
     
     YHCollectionViewSectionModel *model = [self collectionView:collectionView viewModelForSection:indexPath.section];
-    Class headerClass = model.headerClass;
-    Class footerClass = model.footerClass;
-    Class viewClass = (kind == UICollectionElementKindSectionHeader) ? headerClass : footerClass;
+    Class viewClass = (kind == UICollectionElementKindSectionHeader) ? model.headerClass : model.footerClass;
+    NSString *nibName = (kind == UICollectionElementKindSectionHeader) ? model.headerNibName : model.footerNibName;
     
-    NSString *identifier = YHReusableViewIdentifier(viewClass, nil, kind);
-    if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
-        [self.registeredSupplementaryViewIdentifiers addObject:identifier];
-        [collectionView registerClass:viewClass forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+    NSString *identifier = YHReusableViewIdentifier(viewClass, nibName, kind);
+    
+    if (nibName) {
+        if (![self.registeredSupplementaryViewNibNames containsObject:identifier]) {
+            [self.registeredSupplementaryViewNibNames addObject:identifier];
+            [collectionView registerNib:[UINib nibWithNibName:nibName bundle:nil] forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+        }
+    } else {
+        if (![self.registeredSupplementaryViewIdentifiers containsObject:identifier]) {
+            [self.registeredSupplementaryViewIdentifiers addObject:identifier];
+            [collectionView registerClass:viewClass forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+        }
     }
+    
     
     UICollectionReusableView <YHCollectionViewSectionHeaderFooter> *headerFooter = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
     
@@ -154,7 +170,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     if ([headerFooter respondsToSelector:@selector(setSectionModel:)]) {
         [headerFooter setSectionModel:model];
     }
-
+    
     
     if ([self.delegate respondsToSelector:@selector(collectionViewAdapter:didDequeueSupplementaryView:ofKind:atIndexPath:)]) {
         [self.delegate collectionViewAdapter:self didDequeueSupplementaryView:headerFooter ofKind:kind atIndexPath:indexPath];
@@ -164,7 +180,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 #pragma mark - <UICollectionViewDelegate>
-
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     
     // https://stackoverflow.com/a/46930410
@@ -180,7 +195,6 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 }
 
 #pragma mark - <UICollectionViewDelegateFlowLayout>
-
 // 计算 cell 尺寸
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -341,11 +355,25 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
     return _registeredCellClasses;
 }
 
+- (NSMutableSet<NSString *> *)registeredCellNibNames {
+    if (_registeredCellNibNames == nil) {
+        _registeredCellNibNames = [[NSMutableSet alloc] init];
+    }
+    return _registeredCellNibNames;
+}
+
 - (NSMutableSet<NSString *> *)registeredSupplementaryViewIdentifiers {
     if (_registeredSupplementaryViewIdentifiers == nil) {
         _registeredSupplementaryViewIdentifiers = [[NSMutableSet alloc] init];
     }
     return _registeredSupplementaryViewIdentifiers;
+}
+
+- (NSMutableSet<NSString *> *)registeredSupplementaryViewNibNames {
+    if (_registeredSupplementaryViewNibNames == nil) {
+        _registeredSupplementaryViewNibNames = [[NSMutableSet alloc] init];
+    }
+    return _registeredSupplementaryViewNibNames;
 }
 
 - (MessageInterceptor *)delegateInterceptor {
@@ -360,3 +388,4 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
 
 
 @end
+

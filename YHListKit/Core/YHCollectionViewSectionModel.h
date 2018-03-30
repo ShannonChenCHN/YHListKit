@@ -14,7 +14,8 @@
  */
 @interface YHCollectionViewSectionModel : NSObject
 
-@property (strong, nonatomic) Class headerClass;
+@property (strong, nonatomic) Class headerClass;     // class 和 nibName 两个属性必须设置一个
+@property (copy, nonatomic) NSString *headerNibName;
 @property (copy, nonatomic) NSString *headerTitle;
 @property (assign, nonatomic) CGFloat headerTitleOriginY; // 标题原点 Y
 @property (copy, nonatomic) NSString *headerSubtitle;
@@ -31,11 +32,13 @@
 @property (copy, nonatomic) NSString *footerTitle;
 @property (assign, nonatomic) CGFloat footerWidth;
 @property (assign, nonatomic) CGFloat footerHeight;
-@property (strong, nonatomic) Class footerClass;
+@property (strong, nonatomic) Class footerClass;      // class 和 nibName 两个属性必须设置一个
+@property (copy, nonatomic) NSString *footerNibName;
 
 @property (nonatomic, assign) CGFloat minimumLineSpacing;
 @property (nonatomic, assign) CGFloat minimumInteritemSpacing;
 @property (nonatomic, assign) UIEdgeInsets sectionInsets;
 
-
 @end
+
+

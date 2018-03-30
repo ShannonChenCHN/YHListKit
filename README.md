@@ -168,6 +168,7 @@ pod 'YHListKit'
 - [ ] 完善注释和文档
 - [ ] Swift version
 - [x] CocoaPods  support
+- [x] Nib Support
 
 
 ## 致谢❤️
