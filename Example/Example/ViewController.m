@@ -107,7 +107,11 @@
     
 #pragma mark - <YHCollectionViewAdapterDelegate>
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"cell: %@, indexPath: %@", cell, indexPath);
+}
+
+- (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueSupplementaryView:(UICollectionReusableView *)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"view: %@, kind: %@, indexPath: %@", view, kind, indexPath);
 }
 
 @end

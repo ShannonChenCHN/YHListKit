@@ -72,7 +72,21 @@ self.adapter.collectionViewDelegate = self;           // 设置代理不是必�
 self.adapter.delegate = self;                         // 设置代理不是必需的，视业务情况而定
 ```
 
-#### 3. 设置 view model 数据，也就是创建 section model 和 cell model，配置相关数据（注：这里仅仅是举个例子，你可以配置任何你想要展示的数据）：
+#### 3. 在你的自定义 `UICollectionViewCell` 中实现 `YHCollectionViewCell` 协议，手动合成 cellModel 属性（这里以 `SCCutomCollectionViewCell` 为例）：
+
+``` Objective-C
+@interface SCCutomCollectionViewCell : UICollectionViewCell <YHCollectionViewCell>
+
+@end
+
+@implementation SCCutomCollectionViewCell
+@synthesize cellModel = _cellModel;
+
+@end
+```
+
+
+#### 4. 设置 view model 数据，也就是创建 section model 和 cell model，配置相关数据（注：这里仅仅是举个例子，你可以配置任何你想要展示的数据）：
 ``` Objective-C
 
 // 可以理解为一个 table view 的数据源由多个 section model 组成，每个 sectionModel 包括 header 和 footer 相关的信息、cell models、以及 section 本身的信息。详见 YHCollectionViewSectionModel 和 YHCollectionViewCellModel 的头文件。
@@ -124,7 +138,7 @@ self.adapter.sectionModels = sections;
 [self.collectionView reloadData];
 ```
 
-#### 4. 除了在 view model 层设置 cell 、 section header 和 section footer 的高度之外，还可以在对应的 view 层设置高度，只需要实现 `YHCollectionViewCell` 和 `YHCollectionViewSectionHeaderFooter` 协议中定义的方法即可：
+#### 5. 设置 cell 、 section header 和 section footer 的高度的方式有两种，除了在 view model 层设置之外，还可以在对应的 view 层设置高度，只需要实现 `YHCollectionViewCell` 和 `YHCollectionViewSectionHeaderFooter` 协议中定义的方法即可（如果同时实现了两种方式，默认取后一种方式计算的值）：
 ``` Objective-C
 @protocol YHCollectionViewCell <NSObject>
 
@@ -149,6 +163,30 @@ self.adapter.sectionModels = sections;
 ```
 
 更详细的使用介绍见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
+
+## Q&A
+
+### 1. 如何在管理 `YHCollectionViewAdapter` 的  controller 中与 cells 和 supplementary views 进行通信？
+
+第一步：将 `YHCollectionViewAdapter` 的 `delegate` 属性值设置为当前的 controller；      
+
+第二步：实现 `YHCollectionViewAdapterDelegate` 协议中的方法即可，该协议提供了两个方法分别用来与 cells 和 supplementary views 进行通信：
+
+```
+- (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+- (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueSupplementaryView:(UICollectionReusableView *)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+```
+
+详见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
+
+### 2. 如何在管理 `YHCollectionViewAdapter` 的  controller 中得到 `UICollectionViewDelegate` 和 `UIScrollViewDelete` 的方法回调？
+
+第一步：将 `YHCollectionViewAdapter` 的 `collectionViewDelegate` 属性值设置为当前的 controller；      
+
+第二步：根据你的需要去实现 `UICollectionViewDelegate` 和 `UIScrollViewDelete`  协议中的方法即可。
+
+详见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
 
 ## 安装
 
