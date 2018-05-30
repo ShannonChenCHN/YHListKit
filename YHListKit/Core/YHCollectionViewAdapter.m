@@ -287,7 +287,7 @@ NS_INLINE NSString *YHReusableViewIdentifier(Class viewClass, NSString * _Nullab
         
     }
     
-    if (sectionModel.headerWidth == CGFLOAT_MAX) { // 宽度没有缓存
+    if (sectionModel.footerWidth == CGFLOAT_MAX) { // 宽度没有缓存
         
         if ([footerClass respondsToSelector:@selector(widthWithModel:)]) {
             sectionModel.footerWidth = [footerClass widthWithModel:sectionModel];
