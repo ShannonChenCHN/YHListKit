@@ -166,13 +166,13 @@ self.adapter.sectionModels = sections;
 
 ## Q&A
 
-### 1. 如何在管理 `YHCollectionViewAdapter` 的  controller 中与 cells 和 supplementary views 进行通信？
+#### 1. 如何在管理 `YHCollectionViewAdapter` 的  controller 中与 cells 和 supplementary views 进行通信？
 
 第一步：将 `YHCollectionViewAdapter` 的 `delegate` 属性值设置为当前的 controller；      
 
 第二步：实现 `YHCollectionViewAdapterDelegate` 协议中的方法即可，该协议提供了两个方法分别用来与 cells 和 supplementary views 进行通信：
 
-```
+``` Objective-C
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 - (void)collectionViewAdapter:(YHCollectionViewAdapter *)adapter didDequeueSupplementaryView:(UICollectionReusableView *)view ofKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
@@ -180,7 +180,7 @@ self.adapter.sectionModels = sections;
 
 详见示例代码 [Example](https://github.com/ShannonChenCHN/YHListKit/tree/master/Example)。
 
-### 2. 如何在管理 `YHCollectionViewAdapter` 的  controller 中得到 `UICollectionViewDelegate` 和 `UIScrollViewDelete` 的方法回调？
+#### 2. 如何在管理 `YHCollectionViewAdapter` 的  controller 中得到 `UICollectionViewDelegate` 和 `UIScrollViewDelete` 的方法回调？
 
 第一步：将 `YHCollectionViewAdapter` 的 `collectionViewDelegate` 属性值设置为当前的 controller；      
 
@@ -192,7 +192,7 @@ self.adapter.sectionModels = sections;
 
 YHListKit 可以通过 CocoaPods 安装：
 
-```
+``` Ruby
 pod 'YHListKit'
 ```
 
@@ -203,7 +203,7 @@ pod 'YHListKit'
 
 ## TODO
 
-- [ ] 完善注释和文档
+- [x] 注释和文档
 - [ ] Swift version
 - [x] CocoaPods  support
 - [x] Nib Support
